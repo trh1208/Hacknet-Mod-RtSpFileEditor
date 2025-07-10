@@ -1,5 +1,3 @@
-目前支持的功能：（没有指定目录的情况下，默认为游戏目录，即hacknet.exe所在目录）
-在任意Action中添加：
 # Hacknet 功能扩展文档
 
 ## 默认操作目录
@@ -28,7 +26,7 @@ MaxSize：最大大小
 将在游戏目录下创建名为report.pdf的文件，大小介于50KB到100KB之间。
 
 ---
-
+### 2.  启动玩家物理系统应用
 ```<RunExternalFile FilePath="cmd.exe" Arguments="help" UseShellExecute="true" WaitForExit="false"/>```\
 FilePath：位置\
 Arguments：运行时附带参数（可选）\
@@ -40,19 +38,24 @@ WaitForExit：是否等待进程结束\
 UseShellExecute代表是否使用系统的shell运行。
 
 ---
-
+##  Mission 任务目标
+-`FileContentMatch`函数只能检测**文本文件**，但后缀可以自定义，只要你能用记事本打开查看内容就行。
+### 1.  检测目标文件是否存在在指定目录
 在Missions中的goals中添加：
 ```<goal type="RealFileExists" FilePath="1.txt" />```\
-检测游戏目录是否存在1.txt文件。存在即可提交任务（只检测文件名）\
+检测游戏目录是否存在1.txt文件。存在即可提交任务（只检测文件名）
 
 ---
+### 2.  检测目标文件是否不存在在指定目录
 ```<goal type="RealFileNotExists" FilePath="D:\Steam\steamapps\common\Hacknet\report.pdf" />```\
-检测游戏目录是否不存在report.pdf文件。不存在即可提交任务（只检测文件名）\
+检测游戏目录是否不存在report.pdf文件。不存在即可提交任务（只检测文件名）
 
 ---
+### 3.  检测在指定目录下的目标文件内容是否存在指定内容（使用正在表达式匹配）
 ```<goal type="FileContentMatch" FilePath="2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>```\
 检测游戏目录下是否存在2.txt文件，且内容匹配正则表达式。匹配成功即可提交任务。
 
 ---
+### 4.  检测在指定目录下的目标文件内容是否不存在指定内容（使用正在表达式匹配）
 ```<goal type="FileContentMatch" FilePath="3.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="false"/>```\
 检测游戏目录下是否存在3.txt文件，且内容匹配正则表达式。匹配失败即可提交任务。
