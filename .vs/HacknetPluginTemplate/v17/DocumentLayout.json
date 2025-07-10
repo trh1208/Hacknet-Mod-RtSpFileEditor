@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\desktop\\hacknet-mod\\test\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8F66B2F8-F985-4B27-ABAD-42E9CD52B911}|HacknetPluginTemplate.csproj|e:\\desktop\\hacknet-mod\\test\\tryplus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8F66B2F8-F985-4B27-ABAD-42E9CD52B911}|HacknetPluginTemplate.csproj|solutionrelative:tryplus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "tryplus.cs",
+              "DocumentMoniker": "E:\\desktop\\hacknet-mod\\test\\tryplus.cs",
+              "RelativeDocumentMoniker": "tryplus.cs",
+              "ToolTip": "E:\\desktop\\hacknet-mod\\test\\tryplus.cs",
+              "RelativeToolTip": "tryplus.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T04:37:14.816Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
