@@ -20,18 +20,39 @@
       MaxSize="100KB" 
 />
 ```
+FileName：文件名\
+FileDirectory：文件位置\
+MinSize：最小大小 \
+MaxSize：最大大小
 
 将在游戏目录下创建名为report.pdf的文件，大小介于50KB到100KB之间。
-```<RunExternalFile FilePath="cmd.exe" Arguments="help" UseShellExecute="true" WaitForExit="false"/>```
-效果为：运行游戏目录下的cmd.exe，并传入参数help，不等待命令执行完毕。如果需要等待命令执行完毕，请将WaitForExit属性设置为true。效果变为触发后hacknet退出，等待你关闭cmd窗口后恢复（进度会保留）。
+
+---
+
+```<RunExternalFile FilePath="cmd.exe" Arguments="help" UseShellExecute="true" WaitForExit="false"/>```\
+FilePath：位置\
+Arguments：运行时附带参数（可选）\
+UseShellExecute：是否使用系统shell运行\
+WaitForExit：是否等待进程结束\
+（修改为true会暂停hacknet进程并隐藏hacknet窗口，直到退出你的程序）
+
+效果为：运行游戏目录下的cmd.exe，并传入参数help，不等待命令执行完毕。
 UseShellExecute代表是否使用系统的shell运行。
 
-在missions中的goals中添加：
-```<goal type="RealFileExists" FilePath="1.txt" />```
-检测游戏目录是否存在1.txt文件。存在即可提交任务（只检测文件名）
-```<goal type="RealFileNotExists" FilePath="D:\Steam\steamapps\common\Hacknet\report.pdf" />```
-检测游戏目录是否不存在report.pdf文件。不存在即可提交任务（只检测文件名）
-```<goal type="FileContentMatch" FilePath="2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>```
+---
+
+在Missions中的goals中添加：
+```<goal type="RealFileExists" FilePath="1.txt" />```\
+检测游戏目录是否存在1.txt文件。存在即可提交任务（只检测文件名）\
+
+---
+```<goal type="RealFileNotExists" FilePath="D:\Steam\steamapps\common\Hacknet\report.pdf" />```\
+检测游戏目录是否不存在report.pdf文件。不存在即可提交任务（只检测文件名）\
+
+---
+```<goal type="FileContentMatch" FilePath="2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>```\
 检测游戏目录下是否存在2.txt文件，且内容匹配正则表达式。匹配成功即可提交任务。
-```<goal type="FileContentMatch" FilePath="3.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="false"/>```
+
+---
+```<goal type="FileContentMatch" FilePath="3.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="false"/>```\
 检测游戏目录下是否存在3.txt文件，且内容匹配正则表达式。匹配失败即可提交任务。
