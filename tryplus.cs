@@ -24,7 +24,7 @@ namespace HacknetPluginTemplate
     {
         public const string ModGUID = "com.RtSpFileEditor.test";
         public const string ModName = "RtSpFileEditor";
-        public const string ModVer = "114514";
+        public const string ModVer = "1.0.0";
 
         public override bool Load()
         {
