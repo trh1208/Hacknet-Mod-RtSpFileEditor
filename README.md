@@ -4,7 +4,8 @@
 - 当未指定目录时，默认使用**游戏目录**（即 `hacknet.exe` 所在目录）
 - 所有文件操作均基于此目录执行
 - 示例路径：`D:\Steam\steamapps\common\Hacknet`
-
+- **相对路径应当为"Extension\……"而不是"\Extension\……"**
+- 路径不存在时，会尝试创建目录
 ---
 
 ##  Action 操作指令
