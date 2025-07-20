@@ -47,6 +47,15 @@ WaitForExit：是否等待进程结束\
 UseShellExecute代表是否使用系统的shell运行。
 
 ---
+### 3.  崩溃HN
+```xml
+<TerminateGame Delay="0" SaveBeforeExit="true" /> 
+```
+Delay：延迟（无需设置DelayHost）
+SaveBeforeExit：是否在崩溃前为玩家保存进度？
+
+
+---
 ##  Mission 任务目标
 -`FileContentMatch`函数只能检测**文本文件**，但后缀可以自定义，只要你能用记事本打开查看内容就行。
 ### 1.  检测目标文件是否存在在指定目录
