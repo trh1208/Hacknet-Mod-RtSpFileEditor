@@ -15,11 +15,23 @@ using System.IO;
 using System.Collections.Generic;
 using Pathfinder;
 
+using Hacknet.Extensions;
 using BepInEx.Hacknet;
 
-namespace HacknetPluginTemplate
+
+using System.Diagnostics;
+//去你妈的报错，老子就不信全给你引用一遍，还能报缺少库！！！！
+
+
+
+
+
+namespace RtSpFileEditor
 {
     [BepInPlugin(ModGUID, ModName, ModVer)]
+    //RNM!!!!!!!!!!!!CNMD,SB上古VS，这么大个RtSpFileEditor，你丫输出的名字还是你那个默认的HacknetPluginTemplate.dll
+    //微软，整个世界就是一个巨大的不安全的NuGet包是吧！BYD之前好歹只是提示第三方包不安全，现在自己的包都不安全了是吧。
+    //编译为什么要检查那个该死的包安全性啊Fvvvvvvvvvvvvvvvk！
     public class HacknetPluginTemplate : HacknetPlugin
     {
         public const string ModGUID = "com.RtSpFileEditor.test";
@@ -28,10 +40,11 @@ namespace HacknetPluginTemplate
 
         public override bool Load()
         {
-            // 注册原有功能
-            ActionManager.RegisterAction<CreateFileAction>("CreateFileAction");
+
 
             // 注册新增功能
+
+            ActionManager.RegisterAction<CreateFileAction>("CreateFileAction");
             GoalManager.RegisterGoal<RealFileExistsGoal>("RealFileExists");
             GoalManager.RegisterGoal<RealFileNotExistsGoal>("RealFileNotExists");
             ActionManager.RegisterAction<TerminateGameAction>("TerminateGame");
@@ -317,29 +330,183 @@ namespace HacknetPluginTemplate
             }
         }
     }
+    /* ================= 游戏终止动作 (使用正确Hacknet API) ================= */
+    //如果有人看到了下面的这么一大坨注释，不要问我为什么不删，下面是备份，是bug最少的版本，要改可以从这里直接改。
+    //小贴士：不要在提交的时候覆盖仓库，不然我就烧了你！！！！！
+    /*
 
-
-    /* ================= 游戏终止动作 ================= */
-    public class TerminateGameAction : Pathfinder.Action.DelayablePathfinderAction
+    public class TerminateGameAction : DelayablePathfinderAction
     {
         [XMLStorage]
-        public new float Delay = 0f; // 使用new关键字解决隐藏警告
+        public new float Delay = 0f;
 
+        [XMLStorage]
+        public bool SaveBeforeExit = false;
         public override void Trigger(OS os)
         {
-            if (Delay > 0f)
+            if (Delay <= 0f)
             {
-                os.delayer.Post(ActionDelayer.Wait(Delay), Terminate);
+                SafeTerminate(os);
             }
             else
             {
-                Terminate();
+                // 完全正确的延迟执行方式 - 使用 Hacknet 中实际存在的 API
+                os.delayer.Post(
+                    ActionDelayer.Wait(Delay), // 创建等待条件
+                    () => SafeTerminate(os)    // 条件满足后执行的动作
+                );
+            }
+        }
+        private void SafeTerminate(OS os)
+        {
+            try
+            {
+                if (SaveBeforeExit)
+                {
+                    TrySaveGame(os);
+                }
+
+                // 强制终止游戏进程
+                ForceKillGameProcess();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[TerminateGame] Critical error: {ex.Message}");
+                ForceKillGameProcess();
+            }
+        }
+        private void TrySaveGame(OS os)
+        {
+            try
+            {
+                // 使用OS.cs中实际存在的保存方法
+                os.saveGame();
+                Console.WriteLine("[TerminateGame] Game saved successfully before exit");
+            }
+            catch (Exception saveEx)
+            {
+                Console.WriteLine($"[TerminateGame] Save failed: {saveEx.Message}");
+            }
+        }
+        private void ForceKillGameProcess()
+        {
+            try
+            {
+                // 获取当前进程并强制终止
+                Process currentProcess = Process.GetCurrentProcess();
+                currentProcess.Kill();
+            }
+            catch (Exception killEx)
+            {
+                Console.WriteLine($"[TerminateGame] Process kill failed: {killEx.Message}");
+                Environment.Exit(0); // 作为后备方案
+            }
+        }
+    }
+    */
+
+    public class TerminateGameAction : DelayablePathfinderAction
+    {
+        [XMLStorage]
+        public new float Delay = 0f;
+
+        [XMLStorage]
+        public bool SaveBeforeExit = false;
+
+        public override void Trigger(OS os)
+        {
+            // 检查是否为特殊测试账户
+            if (os.defaultUser.name == "__ExtensionTest")
+            {
+                HandleExtensionTestTermination(os);
+                return;
+            }
+
+            // 普通账户的正常终止逻辑
+            if (Delay <= 0f)
+            {
+                SafeTerminate(os);
+            }
+            else
+            {
+                // 使用 Hacknet 中实际存在的 API 进行延迟
+                os.delayer.Post(
+                    ActionDelayer.Wait(Delay),
+                    () => SafeTerminate(os)
+                );
             }
         }
 
-        private void Terminate()
+        // 处理特殊测试账户的终止逻辑
+        private void HandleExtensionTestTermination(OS os)
         {
-            Environment.Exit(0);
+            os.write("==============================================");
+            os.write("Extension Test Mode: Skipping game termination");
+            os.write("==============================================");
+
+            if (SaveBeforeExit)
+            {
+                os.write("Saving game state for extension test user...");
+                TrySaveGame(os);
+            }
+            else
+            {
+                os.write("SaveBeforeExit=false, skipping save operation");
+            }
+
+            os.write("Continuing game execution for testing purposes");
+        }
+
+        private void SafeTerminate(OS os)
+        {
+            try
+            {
+                if (SaveBeforeExit)
+                {
+                    TrySaveGame(os);
+                }
+
+                ForceKillGameProcess();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[TerminateGame] Critical error: {ex.Message}");
+                ForceKillGameProcess();
+            }
+        }
+
+        private void TrySaveGame(OS os)
+        {
+            try
+            {
+                // 使用 Hacknet 内置的保存方法
+                os.saveGame();
+                Console.WriteLine("[TerminateGame] Game saved successfully before exit");
+            }
+            catch (Exception saveEx)
+            {
+                Console.WriteLine($"[TerminateGame] Save failed: {saveEx.Message}");
+            }
+        }
+
+        private void ForceKillGameProcess()
+        {
+            try
+            {
+                // 获取当前进程并强制终止
+                Process currentProcess = Process.GetCurrentProcess();
+                currentProcess.Kill();
+            }
+            catch (Exception killEx)
+            {
+                Console.WriteLine($"[TerminateGame] Process kill failed: {killEx.Message}");
+                Environment.Exit(0); // 后备退出方案
+            }
         }
     }
+
+    //下面的这个大括号不要动！！！！！
+    //这是整个程序的末端，是闭合的！！！！
+    //你再删了，把你那个B AI写的混合农家肥复制过来的时候，把这玩意删了，我就让你飞起来！！！！
+
 }
