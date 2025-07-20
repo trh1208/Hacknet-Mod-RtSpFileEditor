@@ -1,5 +1,7 @@
 # Hacknet 功能扩展文档
-
+# 注意！对于RtSpFileEditor（以下简称本MOD）的所有版本，仅限于学习和交流使用，不得用于任何违法途径。\
+# 当你加载本MOD之后，视为您知晓其任何可能存在或导致的安全风险和隐患。\
+# 任何由于其他恶意MOD或者Extension开发者所导致的您的损失，本作者概不负责。\
 ## 默认操作目录
 - 当未指定目录时，默认使用**游戏目录**（即 `hacknet.exe` 所在目录）
 - 所有文件操作均基于此目录执行
@@ -22,7 +24,7 @@
 FileName：文件名\
 FileDirectory：文件位置\
 MinSize：最小大小 \
-MaxSize：最大大小
+MaxSize：最大大小\
 
 将在游戏目录下创建名为report.pdf的文件，大小介于50KB到100KB之间。
 
@@ -41,7 +43,7 @@ FilePath：位置\
 Arguments：运行时附带参数（可选）\
 UseShellExecute：是否使用系统shell运行\
 WaitForExit：是否等待进程结束\
-（修改为true会暂停hacknet进程并隐藏hacknet窗口，直到退出你的程序）
+（修改为true会暂停hacknet进程并隐藏hacknet窗口，直到退出你的程序）\
 
 效果为：运行游戏目录下的cmd.exe，并传入参数help，不等待命令执行完毕。
 UseShellExecute代表是否使用系统的shell运行。
@@ -73,7 +75,7 @@ SaveBeforeExit：是否在崩溃前为玩家保存进度？
 检测游戏目录是否不存在report.pdf文件。不存在即可提交任务（只检测文件名）
 
 ---
-### 3.  检测在指定目录下的目标文件内容是否存在指定内容（使用正在表达式匹配）
+### 3.  检测在指定目录下的目标文件内容是否存在指定内容（使用正则表达式匹配）
 ```xml
 <goal type="FileContentMatch" FilePath="2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>
 ```
