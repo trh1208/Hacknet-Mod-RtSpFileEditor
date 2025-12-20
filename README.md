@@ -47,7 +47,7 @@ WaitForExit：是否等待进程结束\
 UseShellExecute代表是否使用系统的shell运行。
 
 ---
-###崩溃HN
+### 3. 崩溃HN
 ```xml
 <TerminateGame SaveBeforeExit="false" Delay="0" />
 ```
