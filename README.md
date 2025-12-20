@@ -3,13 +3,8 @@
 ## 默认操作目录
 - 当未指定目录时，默认使用**当前拓展的根目录**
 - 所有文件操作均基于此目录执行
-<<<<<<< HEAD
-- 示例路径：`D:\Steam\steamapps\common\Hacknet`
-- **相对路径应当为"Extension\……"而不是"\Extension\……"**
-=======
 - 修复了路径问题，现在默认的路径是你的拓展的根目录。\
 使用“\pathxxx”指定子目录，例如：“Extension/YourExtensionName/OutputTest”则输入“/OutputTest” \
->>>>>>> aff82931745e82cd3090a24f56d86e1a74fe5b01
 - 路径不存在时，会尝试创建目录
 ---
 
