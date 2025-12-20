@@ -3,10 +3,10 @@
 # 当你加载本MOD之后，视为您知晓其任何可能存在或导致的安全风险和隐患。
 # 任何由于其他恶意MOD或者Extension开发者所导致的您的损失，本作者概不负责。
 ## 默认操作目录
-- 当未指定目录时，默认使用**游戏目录**（即 `hacknet.exe` 所在目录）
+- 当未指定目录时，默认使用**当前拓展的根目录**
 - 所有文件操作均基于此目录执行
-- 示例路径：`D:\Steam\steamapps\common\Hacknet`
-- **相对路径应当为"Extensions\……"而不是"\Extensions\……"**
+- 修复了路径问题，现在默认的路径是你的拓展的根目录。\
+使用“\pathxxx”指定子目录，例如：“Extension/YourExtensionName/OutputTest”则输入“/OutputTest” \
 - 路径不存在时，会尝试创建目录
 ---
 
