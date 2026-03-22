@@ -3,9 +3,11 @@
 ## 默认操作目录
 - 当未指定目录时，默认使用**游戏目录**（即 `hacknet.exe` 所在目录）
 - 所有文件操作均基于此目录执行
-- 示例路径：`D:\Steam\steamapps\common\Hacknet`
-- **相对路径应当为"/Extension/……"而不是"Extension/……"**
+- 修复了路径问题，现在默认的路径是你的拓展的根目录。\
+使用“/pathxxx”指定子目录，例如：“Extension/YourExtensionName/OutputTest”则输入“/OutputTest” \
 - 路径不存在时，会尝试创建目录
+- 当输入的路径不以/开头时则表示直接在游戏目录下操作例如：
+  "Output/1"表示:".../Hacknet/Output/1"
 ---
 
 ##  Action 操作指令
@@ -45,6 +47,16 @@ WaitForExit：是否等待进程结束\
 
 效果为：运行游戏目录下的cmd.exe，并传入参数help，不等待命令执行完毕。
 UseShellExecute代表是否使用系统的shell运行。
+
+---
+### 3. 崩溃HN
+```xml
+<TerminateGame SaveBeforeExit="false" Delay="0" />
+```
+SaveBeforeExit是否在退出前保存？
+
+Delay延迟
+
 
 ---
 ##  Mission 任务目标
