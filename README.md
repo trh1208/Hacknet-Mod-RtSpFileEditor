@@ -1,15 +1,10 @@
 # Hacknet 功能扩展文档
 
 ## 默认操作目录
-- 当未指定目录时，默认使用**当前拓展的根目录**
+- 当未指定目录时，默认使用**游戏目录**（即 `hacknet.exe` 所在目录）
 - 所有文件操作均基于此目录执行
-<<<<<<< HEAD
 - 示例路径：`D:\Steam\steamapps\common\Hacknet`
-- **相对路径应当为"Extension\……"而不是"\Extension\……"**
-=======
-- 修复了路径问题，现在默认的路径是你的拓展的根目录。\
-使用“\pathxxx”指定子目录，例如：“Extension/YourExtensionName/OutputTest”则输入“/OutputTest” \
->>>>>>> aff82931745e82cd3090a24f56d86e1a74fe5b01
+- **相对路径应当为"/Extension/……"而不是"Extension/……"**
 - 路径不存在时，会尝试创建目录
 ---
 
@@ -57,7 +52,7 @@ UseShellExecute代表是否使用系统的shell运行。
 ### 1.  检测目标文件是否存在在指定目录
 在Missions中的goals中添加：
 ```xml
-<goal type="RealFileExists" FilePath="1.txt" />
+<goal type="RealFileExists" FilePath="/1.txt" />
 ```
 检测游戏目录是否存在1.txt文件。存在即可提交任务（只检测文件名）
 
@@ -71,13 +66,13 @@ UseShellExecute代表是否使用系统的shell运行。
 ---
 ### 3.  检测在指定目录下的目标文件内容是否存在指定内容（使用正在表达式匹配）
 ```xml
-<goal type="FileContentMatch" FilePath="2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>
+<goal type="FileContentMatch" FilePath="/2.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="true"/>
 ```
 检测游戏目录下是否存在2.txt文件，且内容匹配正则表达式。匹配成功即可提交任务。
 
 ---
 ### 4.  检测在指定目录下的目标文件内容是否不存在指定内容（使用正在表达式匹配）
 ```xml
-<goal type="FileContentMatch" FilePath="3.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="false"/>
+<goal type="FileContentMatch" FilePath="/3.txt" Pattern="^fileupload\s*=\s*true$" RequireMatch="false"/>
 ```
 检测游戏目录下是否存在3.txt文件，且内容匹配正则表达式。匹配失败即可提交任务。
